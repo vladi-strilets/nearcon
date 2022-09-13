@@ -1,66 +1,59 @@
-import 'regenerator-runtime'
 import React from 'react'
+import 'regenerator-runtime'
+import ApplyAsStudentForm from './components/ApplyAsStudentForm'
+import CreateNewCertificate from './components/CreateNewCertificateForm'
+import IssueCertificateToStudentForm from './components/IssueCertificateToStudent'
+import RegisterSchoolForm from './components/RegisterSchoolForm'
 
-import './assets/global.css'
+import { SignInPrompt, SignOutButton } from './ui-components'
 
-import { EducationalText, SignInPrompt, SignOutButton } from './ui-components'
+import CssBaseline from '@mui/material/CssBaseline'
+import { Box, Typography } from '@mui/material'
+import Header from './components/Header'
 
 export default function App({ isSignedIn, contract, wallet }) {
-  const [valueFromBlockchain, setValueFromBlockchain] = React.useState()
-
-  const [uiPleaseWait, setUiPleaseWait] = React.useState(true)
-
-  // Get blockchian state once on component load
-  React.useEffect(() => {
-    contract
-      .getGreeting()
-      .then(setValueFromBlockchain)
-      .catch(alert)
-      .finally(() => {
-        setUiPleaseWait(false)
-      })
-  }, [])
-
-  /// If user not signed-in with wallet - show prompt
-  if (!isSignedIn) {
-    // Sign-in flow will reload the page later
-    return <SignInPrompt greeting={valueFromBlockchain} onClick={() => wallet.signIn()} />
+  const signIn = () => {
+    wallet.signIn()
   }
 
-  function changeGreeting(e) {
-    e.preventDefault()
-    setUiPleaseWait(true)
-    const { greetingInput } = e.target.elements
-    contract
-      .setGreeting(greetingInput.value)
-      .then(async () => {
-        return contract.getGreeting()
-      })
-      .then(setValueFromBlockchain)
-      .finally(() => {
-        setUiPleaseWait(false)
-      })
+  const singOut = () => {
+    wallet.signOut()
+  }
+
+  const getBody = () => {
+    /// If user not signed-in with wallet - show prompt
+    if (!isSignedIn) {
+      // Sign-in flow will reload the page later
+      return <SignInPrompt onClick={signIn} />
+    }
+
+    return (
+      <>
+        <Header signOut={singOut} />
+        <Box component="main" sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          <Box sx={{ flex: 1, p: 4 }}>
+            <Typography variant="h4" sx={{ paddingBottom: 2, textAlign: 'center' }}>
+              Schools flow
+            </Typography>
+            <RegisterSchoolForm contract={contract} />
+            <CreateNewCertificate contract={contract} />
+            <IssueCertificateToStudentForm contract={contract} />
+          </Box>
+          <Box sx={{ flex: 1, p: 4 }}>
+            <Typography variant="h4" sx={{ paddingBottom: 2, textAlign: 'center' }}>
+              Students flow
+            </Typography>
+            <ApplyAsStudentForm contract={contract} />
+          </Box>
+        </Box>
+      </>
+    )
   }
 
   return (
     <>
-      <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()} />
-      <main className={uiPleaseWait ? 'please-wait' : ''}>
-        <h1>
-          The contract says: <span className="greeting">{valueFromBlockchain}</span>
-        </h1>
-        <form onSubmit={changeGreeting} className="change">
-          <label>Change greeting:</label>
-          <div>
-            <input autoComplete="off" defaultValue={valueFromBlockchain} id="greetingInput" />
-            <button>
-              <span>Save</span>
-              <div className="loader"></div>
-            </button>
-          </div>
-        </form>
-        <EducationalText />
-      </main>
+      <CssBaseline />
+      {getBody()}
     </>
   )
 }

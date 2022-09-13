@@ -13,8 +13,12 @@
       "path": "../contract-job-portal/"
     },
     {
-      "name": "frontend",
-      "path": "../frontend/"
+      "name": "frontend-academic-verification",
+      "path": "../frontend-academic-verification/"
+    },
+    {
+      "name": "frontend-job-portal",
+      "path": "../frontend-job-portal/"
     },
     {
       "name": "tests",
