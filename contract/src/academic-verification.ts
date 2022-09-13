@@ -80,6 +80,16 @@ class AcademicVerification {
     return certification
   }
 
+  // TODO: add verify multiple ceritification
+  @view({})
+  getCertificationByIds({ certificationIds }: { certificationIds: string[] }) {
+    return certificationIds.map((certificationId) => {
+      const certification = this.getCertificationById({ certificationId })
+      assert(certification !== null, `Certification '${certificationId}' does not exist`)
+      return certification
+    })
+  }
+
   @view({})
   getStudentById({ studentId }: { studentId: string }) {
     const student = this.students.get(studentId)
