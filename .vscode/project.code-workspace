@@ -5,8 +5,12 @@
       "path": "../"
     },
     {
-      "name": "contract",
-      "path": "../contract/"
+      "name": "contract-academic-verification",
+      "path": "../contract-academic-verification/"
+    },
+    {
+      "name": "contract-job-portal",
+      "path": "../contract-job-portal/"
     },
     {
       "name": "frontend",

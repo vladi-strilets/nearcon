@@ -1,7 +1,6 @@
 import { assert, call, near, NearBindgen, UnorderedMap, view } from 'near-sdk-js'
 import { Company } from './models/company'
 import { Offer } from './models/offer'
-import { School } from './models/school'
 
 @NearBindgen({})
 class JobPortal {
@@ -11,7 +10,7 @@ class JobPortal {
   @call({})
   createNewCompany({ name }: { name: string }) {
     const companyId = near.predecessorAccountId()
-    const company = new School({ name })
+    const company = new Company({ name })
     this.companies.set(companyId, company)
     near.log(`Company '${name}' was created`)
     return company
