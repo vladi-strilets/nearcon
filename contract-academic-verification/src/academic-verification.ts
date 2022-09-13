@@ -3,6 +3,9 @@ import { Certificate } from './models/certificate'
 import { School } from './models/school'
 import { Student } from './models/student'
 
+// TODO: check if I have enough NEAR to pay for the gas fee
+// TODO: add whitelist (provide kind of superadmin role)
+
 @NearBindgen({})
 class AcademicVerification {
   schools: UnorderedMap = new UnorderedMap('schools')
