@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONTRACT_DIRECTORY=../contract
+CONTRACT_DIRECTORY=../contract-job-portal
 DEV_ACCOUNT_FILE="${CONTRACT_DIRECTORY}/neardev/dev-account.env"
 
 start () {
