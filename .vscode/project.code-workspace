@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "../"
+    },
+    {
+      "name": "contract",
+      "path": "../contract/"
+    },
+    {
+      "name": "frontend",
+      "path": "../frontend/"
+    },
+    {
+      "name": "tests",
+      "path": "../integration-tests/"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.printWidth": 96,
+    "prettier.semi": false
+  }
+}
