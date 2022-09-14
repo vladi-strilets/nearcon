@@ -70,12 +70,16 @@ class AcademicVerification {
     const certificate = this.getCertificateById({ certificateId })
     assert(schoolId === certificate.schoolId, 'School does not own this certificate')
 
-    const student = this.students.get(studentId) as Student
+    const student = this.getStudentById({ studentId })
 
-    // check if student exists
-    assert(student !== null, 'Student does not exist')
+    const certificateIds = [
+      ...(student.certificateIds != null ? student.certificateIds : []),
+      certificateId,
+    ]
+    const actualizedStudent = new Student({ certificateIds })
 
-    student.addCertificate(certificateId)
+    this.students.set(studentId, actualizedStudent)
+
     near.log(`certificate '${certificateId}' was added to student '${studentId}'`)
 
     return student
@@ -104,23 +108,22 @@ class AcademicVerification {
   @view({})
   getCertificateById({ certificateId }: { certificateId: string }) {
     const certificate = this.certificates.get(certificateId) as Certificate
-    assert(certificate !== null, 'certificate does not exist')
+    assert(certificate !== null, `certificate '${certificateId}' does not exist`)
     return certificate
   }
 
   // TODO: add verify multiple ceritification
   @view({})
-  getCertificateByIds({ certificateIds }: { certificateIds: string[] }) {
+  getCertificatesByIds({ certificateIds }: { certificateIds: string[] }) {
     return certificateIds.map((certificateId) => {
       const certificate = this.getCertificateById({ certificateId })
-      assert(certificate !== null, `certificate '${certificateId}' does not exist`)
       return certificate
     })
   }
 
   @view({})
   getStudentById({ studentId }: { studentId: string }) {
-    const student = this.students.get(studentId)
+    const student = this.students.get(studentId) as Student
     assert(student !== null, 'Student does not exist')
     return student
   }

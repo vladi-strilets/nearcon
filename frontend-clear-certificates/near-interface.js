@@ -55,4 +55,11 @@ export class Contract {
   async getAllStudents() {
     return await this.wallet.viewMethod({ method: 'getAllStudents' })
   }
+
+  async getCertificatesDetails({ certificateIds }) {
+    return await this.wallet.viewMethod({
+      method: 'getCertificatesByIds',
+      args: { certificateIds },
+    })
+  }
 }

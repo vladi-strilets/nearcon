@@ -1,9 +1,10 @@
-import { Alert, Box, Button, FormGroup, Typography } from '@mui/material'
+import { Alert, Box, Button, FormGroup, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 const ApplyAsStudentForm = ({ contract }) => {
   const [loading, setIsLoading] = useState(false)
   const [student, setStudent] = useState(null)
+  const [myCertificates, setMyCertificates] = useState([])
 
   const hasMeAsStudent = !!student
 
@@ -12,7 +13,17 @@ const ApplyAsStudentForm = ({ contract }) => {
       try {
         const resStudent = await contract.getMeAsStudent()
         setStudent(resStudent)
-      } catch (error) {}
+
+        // get list of my certificates
+        if (resStudent.certificateIds != null && resStudent.certificateIds.length > 0) {
+          const resCertificates = await contract.getCertificatesDetails({
+            certificateIds: resStudent.certificateIds,
+          })
+          setMyCertificates(resCertificates)
+        }
+      } catch (error) {
+        console.log('error', error.message)
+      }
     }
     getMeAsStudent()
   }, [])
@@ -43,6 +54,20 @@ const ApplyAsStudentForm = ({ contract }) => {
             <Alert severity="success" sx={{ mt: 2 }}>
               You are the register student already 😎
             </Alert>
+          )}
+          {myCertificates.length > 0 && (
+            <>
+              <Typography variant="h6" fontWeight={500}>
+                My certificates:
+              </Typography>
+              <Stack spacing={2}>
+                {myCertificates.map((certificate, index) => (
+                  <Alert key={index} sx={{ width: '100%' }}>
+                    {certificate?.name}
+                  </Alert>
+                ))}
+              </Stack>
+            </>
           )}
         </FormGroup>
       </form>
