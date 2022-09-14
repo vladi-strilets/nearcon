@@ -1,8 +1,12 @@
-# ClearGov
+# Nearcon 2022 - ClearGov
+
+![Logo](assets/logo.jpg)
+
+![Flow](assets/flow.jpg)
 
 ## ClearCertificates
 
-Run it locally. Remember to install `node_modules`.
+**Run it locally**. Remember to install `node_modules`.
 
 ```bash
 # start a fresh dev account to have a clean smart-contract
