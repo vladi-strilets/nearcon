@@ -15,7 +15,7 @@
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cd contract && npm test",
     "test:integration": "cd integration-tests && npm test -- -- \"./contract/build/hello_near.wasm\"",
-    "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install",
+    "postinstall": "cd frontend-clear-certificates && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract-clear-certificates && npm install",
     "step1": "cd contract-clear-certificates && rm -rf neardev",
     "step2": "cd contract-clear-certificates && npm run deploy",
     "step3": "cd frontend-clear-certificates && npm run start",
