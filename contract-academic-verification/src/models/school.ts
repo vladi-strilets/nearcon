@@ -7,8 +7,8 @@ export class School {
   }
 
   // TODO: allow multiple inserts
+  // TODO: that doens't work, fix it
   addCertification(certificationId: string) {
     this.certificationIds.push(certificationId)
-    return this.certificationIds
   }
 }

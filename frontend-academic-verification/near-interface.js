@@ -5,11 +5,11 @@ export class Contract {
     this.wallet = wallet
   }
 
-  async createNewSchool(name) {
+  async createNewSchool({ name }) {
     return await this.wallet.callMethod({ method: 'createNewSchool', args: { name } })
   }
 
-  async createNewCertification(name) {
+  async createNewCertification({ name }) {
     return await this.wallet.callMethod({
       method: 'createNewCertification',
       args: { name },
@@ -29,15 +29,26 @@ export class Contract {
     })
   }
 
-  async getCertifications() {
-    return await this.wallet.viewMethod({ method: 'getCertifications' })
+  async getSchoolById(schoolId) {
+    return await this.wallet.viewMethod({ method: 'getSchoolById', args: { schoolId } })
   }
 
-  // async getGreeting(){
-  //   return await this.wallet.viewMethod({method: 'get_greeting'});
-  // }
+  async getCertificationBySchoolId(schoolId) {
+    return await this.wallet.viewMethod({
+      method: 'getCertificationBySchoolId',
+      args: { schoolId },
+    })
+  }
 
-  // async setGreeting(greeting){
-  //   return await this.wallet.callMethod({method: 'set_greeting', args:{message: greeting}});
-  // }
+  async getMyCertifications() {
+    return await this.getCertificationBySchoolId(this.wallet.accountId)
+  }
+
+  async getStudentById(studentId) {
+    return await this.wallet.viewMethod({ method: 'getStudentById', args: { studentId } })
+  }
+
+  async getMeAsStudent() {
+    return await this.getStudentById(this.wallet.accountId)
+  }
 }

@@ -29,7 +29,7 @@ export default function App({ isSignedIn, contract, wallet }) {
 
     return (
       <>
-        <Header signOut={singOut} />
+        <Header signOut={singOut} accountId={wallet.accountId} />
         <Box component="main" sx={{ display: 'flex', flexWrap: 'wrap' }}>
           <Box sx={{ flex: 1, p: 4 }}>
             <Typography variant="h4" sx={{ paddingBottom: 2, textAlign: 'center' }}>

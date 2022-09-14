@@ -9,8 +9,8 @@ import { Student } from './models/student'
 @NearBindgen({})
 class AcademicVerification {
   schools: UnorderedMap = new UnorderedMap('schools')
-  certification: UnorderedMap = new UnorderedMap('certifications')
-  students: UnorderedMap = new UnorderedMap('certifications')
+  certifications: UnorderedMap = new UnorderedMap('certifications')
+  students: UnorderedMap = new UnorderedMap('students')
 
   @call({})
   createNewSchool({ name }: { name: string }) {
@@ -21,15 +21,28 @@ class AcademicVerification {
     return school
   }
 
+  // TODO: add CRUD for certifications
+
   @call({})
   createNewCertification({ name }: { name: string }) {
     const schoolId = near.predecessorAccountId()
+    // check if school exists
+    const school = this.getSchoolById({ schoolId })
     const certificationId = near.randomSeed()
     const certification = new Certificate({ schoolId, name })
-    this.certification.set(certificationId, certification)
+    // TODO: find how to add a new certification to the school as array for better performance
+    // school.addCertification(certificationId)
+    // const actualizedSchool = {
+    //   ...school,
+    //   certificationIds: [...school.certificationIds, certificationId],
+    // }
+    // this.schools.set(schoolId, actualizedSchool)
+    this.certifications.set(certificationId, certification)
     near.log(`Certification '${name}' was added to your school '${schoolId}'`)
     return certification
   }
+
+  // TODO: add CRUD for certifications
 
   @call({})
   registerAsStudent() {
@@ -51,11 +64,10 @@ class AcademicVerification {
     const schoolId = near.predecessorAccountId()
 
     // check is school exists
-    const school = this.schools.get(schoolId)
-    assert(school !== null, 'School does not exist')
+    const school = this.getSchoolById({ schoolId })
 
     // check if schoolId is the owner of the certificationId
-    const certification = this.certification.get(certificationId) as Certificate
+    const certification = this.getCertificationById({ certificationId })
     assert(schoolId === certification.schoolId, 'School does not own this certification')
 
     const student = this.students.get(studentId) as Student
@@ -71,14 +83,27 @@ class AcademicVerification {
 
   @view({})
   getSchoolById({ schoolId }: { schoolId: string }) {
-    const school = this.schools.get(schoolId)
+    const school = this.schools.get(schoolId) as School
     assert(school !== null, 'School does not exist')
     return school
   }
 
   @view({})
+  getCertificationBySchoolId({ schoolId }: { schoolId: string }) {
+    const certifications = []
+    for (let i = 0; i < this.certifications.length; i++) {
+      const certificateId: string = this.certifications.keys.get(i) as string
+      const certificate = this.certifications.get(certificateId) as Certificate
+      if (certificate.schoolId === schoolId) {
+        certifications.push({ ...certificate, id: certificateId })
+      }
+    }
+    return certifications
+  }
+
+  @view({})
   getCertificationById({ certificationId }: { certificationId: string }) {
-    const certification = this.certification.get(certificationId)
+    const certification = this.certifications.get(certificationId) as Certificate
     assert(certification !== null, 'Certification does not exist')
     return certification
   }

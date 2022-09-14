@@ -1,3 +1,4 @@
+import { Box, Button, FormGroup, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
 const ApplyAsStudentForm = ({ contract }) => {
@@ -16,15 +17,18 @@ const ApplyAsStudentForm = ({ contract }) => {
   }
 
   return (
-    <>
-      <h2>3. Apply as student</h2>
-      <form onSubmit={onSubmit} className="change">
-        <label>Me, applying as a student</label>
-        <div>
-          <button disabled={loading}>{loading ? 'Loading' : 'Apply'}</button>
-        </div>
+    <Box sx={{ marginBottom: 2 }}>
+      <Typography variant="h5" fontWeight={500}>
+        Apply as student
+      </Typography>
+      <form onSubmit={onSubmit}>
+        <FormGroup>
+          <Button type="submit" variant="contained" disabled={loading}>
+            {loading ? 'Applying...' : 'Apply'}
+          </Button>
+        </FormGroup>
       </form>
-    </>
+    </Box>
   )
 }
 
