@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONTRACT_DIRECTORY=../contract-academic-verification
+CONTRACT_DIRECTORY=../contract-clear-certificates
 DEV_ACCOUNT_FILE="${CONTRACT_DIRECTORY}/neardev/dev-account.env"
 
 start () {

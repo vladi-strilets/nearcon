@@ -5,16 +5,16 @@
       "path": "../"
     },
     {
-      "name": "contract-academic-verification",
-      "path": "../contract-academic-verification/"
+      "name": "contract-clear-certificates",
+      "path": "../contract-clear-certificates/"
     },
     {
       "name": "contract-job-portal",
       "path": "../contract-job-portal/"
     },
     {
-      "name": "frontend-academic-verification",
-      "path": "../frontend-academic-verification/"
+      "name": "frontend-clear-certificates",
+      "path": "../frontend-clear-certificates/"
     },
     {
       "name": "frontend-job-portal",
