@@ -4,7 +4,9 @@
 
 ![Flow](assets/flow.jpg)
 
-[DevPost link](https://devpost.com/software/title-1-dao)
+### [DevPost link](https://devpost.com/software/title-1-dao)
+
+### Live website: https://nearcon.vercel.app/
 
 ## ClearCertificates
 
