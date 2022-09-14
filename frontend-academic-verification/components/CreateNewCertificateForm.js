@@ -1,14 +1,4 @@
-import {
-  Alert,
-  Box,
-  Button,
-  FormGroup,
-  List,
-  ListItem,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Alert, Box, Button, FormGroup, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 const CreateNewCertificate = ({ contract }) => {
@@ -65,8 +55,10 @@ const CreateNewCertificate = ({ contract }) => {
                 Your certificates:
               </Typography>
               <Stack spacing={2}>
-                {certificates.map((certificate) => (
-                  <Alert sx={{ width: '100%' }}>{certificate?.name}</Alert>
+                {certificates.map((certificate, index) => (
+                  <Alert key={index} sx={{ width: '100%' }}>
+                    {certificate?.name}
+                  </Alert>
                 ))}
               </Stack>
             </>

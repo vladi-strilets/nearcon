@@ -31,7 +31,7 @@ export default function App({ isSignedIn, contract, wallet }) {
       <>
         <Header signOut={singOut} accountId={wallet.accountId} />
         <Box component="main" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-          <Box sx={{ flex: 1, p: 4 }}>
+          <Box sx={{ flex: 1, p: 4, maxWidth: '600px', margin: '0 auto' }}>
             <Typography variant="h4" sx={{ paddingBottom: 2, textAlign: 'center' }}>
               Schools flow
             </Typography>
@@ -39,7 +39,7 @@ export default function App({ isSignedIn, contract, wallet }) {
             <CreateNewCertificate contract={contract} />
             <IssueCertificateToStudentForm contract={contract} />
           </Box>
-          <Box sx={{ flex: 1, p: 4 }}>
+          <Box sx={{ flex: 1, p: 4, maxWidth: '600px', margin: '0 auto' }}>
             <Typography variant="h4" sx={{ paddingBottom: 2, textAlign: 'center' }}>
               Students flow
             </Typography>

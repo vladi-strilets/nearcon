@@ -51,4 +51,8 @@ export class Contract {
   async getMeAsStudent() {
     return await this.getStudentById(this.wallet.accountId)
   }
+
+  async getAllStudents() {
+    return await this.wallet.viewMethod({ method: 'getAllStudents' })
+  }
 }

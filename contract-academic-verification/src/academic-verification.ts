@@ -124,4 +124,15 @@ class AcademicVerification {
     assert(student !== null, 'Student does not exist')
     return student
   }
+
+  @view({})
+  getAllStudents() {
+    const students = []
+    for (let i = 0; i < this.students.length; i++) {
+      const studentId: string = this.students.keys.get(i) as string
+      const student = this.students.get(studentId) as Student
+      students.push({ ...student, id: studentId })
+    }
+    return students
+  }
 }

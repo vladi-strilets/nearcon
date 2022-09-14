@@ -4,38 +4,54 @@ import React, { useState } from 'react'
 const IssueCertificateToStudentForm = ({ contract }) => {
   const [loading, setIsLoading] = useState(false)
   const [certificates, setCertificates] = useState([])
+  const [students, setStudents] = useState([])
   const [selectedCertificateId, setSelectedCertificateId] = useState('')
+  const [selectedStudentId, setSelectedStudentId] = useState('')
 
-  const normalizedCertificates = certificates.map((certificate) => ({
-    value: certificate.id,
-    label: certificate.name,
-  }))
-
-  const handleCertificateIdChange = (e) => {
-    setSelectedCertificateId(e.target.value)
-  }
-
-  const refreshListOfcertificates = async () => {
+  const loadCertificates = async () => {
     try {
       const resCertificates = await contract.getMyCertifications()
-      console.log('resCertificates', resCertificates)
       setCertificates(resCertificates)
     } catch (error) {
       console.error(error.message)
     }
   }
 
+  const loadStudents = async () => {
+    try {
+      const resStudents = await contract.getAllStudents()
+      setStudents(resStudents)
+    } catch (error) {}
+  }
+
+  const normalizedCertificates = certificates.map((certificate) => ({
+    value: certificate.id,
+    label: certificate.name,
+  }))
+
+  const normalizedStudents = students.map((student) => ({
+    value: student.id,
+    label: student.id,
+  }))
+
+  const handleCertificateIdChange = (e) => {
+    setSelectedCertificateId(e.target.value)
+  }
+
+  const handleSelectedStudentIdChange = (e) => {
+    setSelectedStudentId(e.target.value)
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
-    const { certificateId, studentId } = e.target.elements
-    const certificateIdValue = certificateId.value
-    const studentIdValue = studentId.value
+
+    // TODO: add validations
 
     try {
       setIsLoading(true)
       await contract.issueCertificate({
-        certificateId: certificateIdValue,
-        studentId: studentIdValue,
+        certificateId: selectedCertificateId,
+        studentId: selectedStudentId,
       })
       setSuccessful(true)
     } catch (error) {
@@ -48,12 +64,12 @@ const IssueCertificateToStudentForm = ({ contract }) => {
   return (
     <Box sx={{ marginBottom: 2 }}>
       <Typography variant="h5" fontWeight={500}>
-        4. Issue a new certificate
+        3. Issue a new certificate
       </Typography>
       <form onSubmit={onSubmit}>
         <FormGroup>
           <TextField
-            id="certificateId"
+            id="certificates"
             select
             size="small"
             margin="normal"
@@ -61,7 +77,7 @@ const IssueCertificateToStudentForm = ({ contract }) => {
             onChange={handleCertificateIdChange}
             label="Select a certificate"
             SelectProps={{
-              onOpen: refreshListOfcertificates,
+              onOpen: loadCertificates,
             }}
           >
             {normalizedCertificates.map((option) => (
@@ -71,14 +87,25 @@ const IssueCertificateToStudentForm = ({ contract }) => {
             ))}
           </TextField>
           <TextField
-            id="studentNearAccountId"
-            variant="outlined"
-            label="Student NEAR account"
+            id="students"
+            select
             size="small"
             margin="normal"
-          />
+            value={selectedStudentId}
+            onChange={handleSelectedStudentIdChange}
+            label="Select a student"
+            SelectProps={{
+              onOpen: loadStudents,
+            }}
+          >
+            {normalizedStudents.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
+            {loading ? 'Issuing...' : 'Issue'}
           </Button>
         </FormGroup>
       </form>
