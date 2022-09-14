@@ -25,7 +25,7 @@ npm run step3
 
 > ⚠️ Note: please, consider following the **"happy path**" as FE and the smart-contract itself is not complitly secured
 
-Check the happy path in our video presentation.
+Check the happy path in [our video presentation](https://youtu.be/qJgP7GQFPhM).
 
 Use 2 browsers to manage 2 flows, as Student and as School.
 
