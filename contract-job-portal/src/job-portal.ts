@@ -17,14 +17,14 @@ class JobPortal {
   }
 
   @call({})
-  createNewOffer({ title, certificationIds }: { title: string; certificationIds: string[] }) {
+  createNewOffer({ title, certificateIds }: { title: string; certificateIds: string[] }) {
     const companyId = near.predecessorAccountId()
     const company = this.getCompanyById(companyId)
 
-    // TODO: check if certifications ids exists in our academic-verification contract
+    // TODO: check if certificates ids exists in our academic-verification contract
 
     const offerId = near.randomSeed()
-    const offer = new Offer({ companyId, title, certificationIds })
+    const offer = new Offer({ companyId, title, certificateIds })
     this.offers.set(offerId, offer)
     company.addOffer(offerId)
 

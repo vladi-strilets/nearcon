@@ -1,8 +1,8 @@
 export class Student {
-  certificationIds: string[];
+  certificateIds: string[]
 
-  addCertification(certificationId: string) {
-    this.certificationIds.push(certificationId);
-    return this.certificationIds;
+  addCertificate(certificateId: string) {
+    this.certificateIds.push(certificateId)
+    return this.certificateIds
   }
 }

@@ -10,7 +10,7 @@ const IssueCertificateToStudentForm = ({ contract }) => {
 
   const loadCertificates = async () => {
     try {
-      const resCertificates = await contract.getMyCertifications()
+      const resCertificates = await contract.getMyCertificates()
       setCertificates(resCertificates)
     } catch (error) {
       console.error(error.message)
@@ -44,15 +44,17 @@ const IssueCertificateToStudentForm = ({ contract }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    const data = {
+      certificateId: selectedCertificateId,
+      studentId: selectedStudentId,
+    }
+    console.log('data', data)
 
     // TODO: add validations
 
     try {
       setIsLoading(true)
-      await contract.issueCertificate({
-        certificateId: selectedCertificateId,
-        studentId: selectedStudentId,
-      })
+      await contract.issueCertificate(data)
       setSuccessful(true)
     } catch (error) {
       console.error(error.message)

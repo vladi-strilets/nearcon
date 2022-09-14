@@ -1,23 +1,23 @@
 export class Offer {
   companyId: string
   title: string
-  // TODO: add a 'required' and 'good to have categories' of certifications
-  certificationIds: string[]
+  // TODO: add a 'required' and 'good to have categories' of certificates
+  certificateIds: string[]
   candidates: string[] = []
   selectedCantidate: string
 
   constructor({
     companyId,
     title,
-    certificationIds,
+    certificateIds,
   }: {
     companyId: string
     title: string
-    certificationIds: string[]
+    certificateIds: string[]
   }) {
     this.companyId = companyId
     this.title = title
-    this.certificationIds = certificationIds
+    this.certificateIds = certificateIds
   }
 
   addCandidate(candidateId: string) {

@@ -5,10 +5,10 @@ import CreateNewCertificate from './components/CreateNewCertificateForm'
 import IssueCertificateToStudentForm from './components/IssueCertificateToStudent'
 import RegisterSchoolForm from './components/RegisterSchoolForm'
 
-import { SignInPrompt, SignOutButton } from './ui-components'
+import { SignInPrompt } from './ui-components'
 
-import CssBaseline from '@mui/material/CssBaseline'
 import { Box, Typography } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import Header from './components/Header'
 
 export default function App({ isSignedIn, contract, wallet }) {

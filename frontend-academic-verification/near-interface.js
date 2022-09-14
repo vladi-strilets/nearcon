@@ -9,9 +9,9 @@ export class Contract {
     return await this.wallet.callMethod({ method: 'createNewSchool', args: { name } })
   }
 
-  async createNewCertification({ name }) {
+  async createNewCertificate({ name }) {
     return await this.wallet.callMethod({
-      method: 'createNewCertification',
+      method: 'createNewCertificate',
       args: { name },
     })
   }
@@ -24,7 +24,7 @@ export class Contract {
 
   async issueCertificate({ certificateId, studentId }) {
     return await this.wallet.callMethod({
-      method: 'addCertificationToStudent',
+      method: 'addCertificateToStudent',
       args: { certificateId, studentId },
     })
   }
@@ -33,15 +33,15 @@ export class Contract {
     return await this.wallet.viewMethod({ method: 'getSchoolById', args: { schoolId } })
   }
 
-  async getCertificationBySchoolId(schoolId) {
+  async getCertificateBySchoolId(schoolId) {
     return await this.wallet.viewMethod({
-      method: 'getCertificationBySchoolId',
+      method: 'getCertificateBySchoolId',
       args: { schoolId },
     })
   }
 
-  async getMyCertifications() {
-    return await this.getCertificationBySchoolId(this.wallet.accountId)
+  async getMyCertificates() {
+    return await this.getCertificateBySchoolId(this.wallet.accountId)
   }
 
   async getStudentById(studentId) {

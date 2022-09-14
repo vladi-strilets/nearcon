@@ -9,7 +9,7 @@ const CreateNewCertificate = ({ contract }) => {
   useEffect(() => {
     const getCertificates = async () => {
       try {
-        const resCertificates = await contract.getMyCertifications()
+        const resCertificates = await contract.getMyCertificates()
         setCertificates(resCertificates)
       } catch (error) {}
     }
@@ -22,7 +22,7 @@ const CreateNewCertificate = ({ contract }) => {
       setIsLoading(true)
       const { certificateName } = e.target.elements
       const certificateNameValue = certificateName.value
-      await contract.createNewCertification({ name: certificateNameValue })
+      await contract.createNewCertificate({ name: certificateNameValue })
       setSuccessful(true)
     } catch (error) {
       console.error(error.message)
@@ -41,7 +41,7 @@ const CreateNewCertificate = ({ contract }) => {
           <TextField
             id="certificateName"
             variant="outlined"
-            label="Certification name"
+            label="Certificate name"
             size="small"
             margin="normal"
           />
