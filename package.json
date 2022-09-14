@@ -18,7 +18,8 @@
     "postinstall": "cd frontend && npm install && cd .. && cd integration-tests && npm install && cd .. && cd contract && npm install",
     "step1": "cd contract-clear-certificates && rm -rf neardev",
     "step2": "cd contract-clear-certificates && npm run deploy",
-    "step3": "cd frontend-clear-certificates && npm run start"
+    "step3": "cd frontend-clear-certificates && npm run start",
+    "build:web:clear-certificates": "cd frontend-clear-certificates && npm run build"
   },
   "devDependencies": {
     "near-cli": "^3.3.0"
